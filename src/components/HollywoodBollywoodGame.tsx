@@ -64,10 +64,10 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
   const [selectedCategory, setSelectedCategory] = useState<'All' | 'Bollywood' | 'Hollywood'>('All');
   const [isMultiplayer, setIsMultiplayer] = useState(false);
   const [multiplayerManager] = useState(() => MultiplayerManager.getInstance());
+  const [usedMovieIds, setUsedMovieIds] = useState<Set<string>>(new Set());
 
   // Pre-loaded movie database
   const defaultMovies: MovieData[] = [
-    // Bollywood Easy
     {
       id: '1',
       actor: 'Shah Rukh Khan',
@@ -79,15 +79,6 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
     },
     {
       id: '2',
-      actor: 'Salman Khan',
-      actress: 'Anushka Sharma',
-      movie: 'Sultan',
-      song: 'Jag Ghoomeya',
-      category: 'Bollywood',
-      difficulty: 'Easy'
-    },
-    {
-      id: '3',
       actor: 'Aamir Khan',
       actress: 'Kareena Kapoor',
       movie: '3 Idiots',
@@ -96,130 +87,111 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
       difficulty: 'Easy'
     },
     {
+      id: '3',
+      actor: 'Salman Khan',
+      actress: 'Katrina Kaif',
+      movie: 'Ek Tha Tiger',
+      song: 'Mashallah',
+      category: 'Bollywood',
+      difficulty: 'Easy'
+    },
+    {
       id: '4',
-      actor: 'Hrithik Roshan',
-      actress: 'Priyanka Chopra',
-      movie: 'Krrish',
-      song: 'Pyaar Ki Ek Kahani',
+      actor: 'Akshay Kumar',
+      actress: 'Sonakshi Sinha',
+      movie: 'Rowdy Rathore',
+      song: 'Chinta Ta Ta',
       category: 'Bollywood',
       difficulty: 'Easy'
     },
     {
       id: '5',
-      actor: 'Akshay Kumar',
-      actress: 'Katrina Kaif',
-      movie: 'Singh Is Kinng',
-      song: 'Teri Ore',
+      actor: 'Ranveer Singh',
+      actress: 'Deepika Padukone',
+      movie: 'Ram-Leela',
+      song: 'Lahu Munh Lag Gaya',
       category: 'Bollywood',
-      difficulty: 'Easy'
+      difficulty: 'Medium'
     },
-    
-    // Bollywood Medium
     {
       id: '6',
-      actor: 'Ranbir Kapoor',
-      actress: 'Deepika Padukone',
-      movie: 'Yeh Jawaani Hai Deewani',
-      song: 'Badtameez Dil',
+      actor: 'Ajay Devgn',
+      actress: 'Tabu',
+      movie: 'Drishyam',
+      song: 'Soch Na Sake',
       category: 'Bollywood',
       difficulty: 'Medium'
     },
     {
       id: '7',
-      actor: 'Ranveer Singh',
-      actress: 'Alia Bhatt',
-      movie: 'Gully Boy',
-      song: 'Apna Time Aayega',
+      actor: 'Shahid Kapoor',
+      actress: 'Kiara Advani',
+      movie: 'Kabir Singh',
+      song: 'Bekhayali',
       category: 'Bollywood',
       difficulty: 'Medium'
     },
     {
       id: '8',
       actor: 'Varun Dhawan',
-      actress: 'Shraddha Kapoor',
-      movie: 'ABCD 2',
-      song: 'Sun Saathiya',
+      actress: 'Alia Bhatt',
+      movie: 'Badrinath Ki Dulhania',
+      song: 'Tamma Tamma Again',
       category: 'Bollywood',
       difficulty: 'Medium'
     },
-    
-    // Bollywood Hard
     {
       id: '9',
-      actor: 'Irrfan Khan',
-      actress: 'Saba Qamar',
-      movie: 'Hindi Medium',
-      song: 'Hoor',
+      actor: 'Amitabh Bachchan',
+      actress: 'Jaya Bachchan',
+      movie: 'Sholay',
+      song: 'Yeh Dosti',
       category: 'Bollywood',
-      difficulty: 'Hard'
+      difficulty: 'Easy'
     },
     {
       id: '10',
-      actor: 'Nawazuddin Siddiqui',
-      actress: 'Radhika Apte',
-      movie: 'Manjhi',
-      song: 'Naina Lagaike',
+      actor: 'Saif Ali Khan',
+      actress: 'Kareena Kapoor',
+      movie: 'Tashan',
+      song: 'Dil Haara',
       category: 'Bollywood',
-      difficulty: 'Hard'
+      difficulty: 'Medium'
     },
-    
-    // Hollywood Easy
     {
       id: '11',
-      actor: 'Leonardo DiCaprio',
-      actress: 'Kate Winslet',
-      movie: 'Titanic',
-      song: 'My Heart Will Go On',
-      category: 'Hollywood',
-      difficulty: 'Easy'
+      actor: 'Rajkummar Rao',
+      actress: 'Kriti Sanon',
+      movie: 'Hum Do Hamare Do',
+      song: 'Bansuri',
+      category: 'Bollywood',
+      difficulty: 'Medium'
     },
     {
       id: '12',
-      actor: 'Tom Cruise',
-      actress: 'Kelly McGillis',
-      movie: 'Top Gun',
-      song: 'Take My Breath Away',
-      category: 'Hollywood',
-      difficulty: 'Easy'
+      actor: 'Aamir Khan',
+      actress: 'Rani Mukerji',
+      movie: 'Ghulam',
+      song: 'Aati Kya Khandala',
+      category: 'Bollywood',
+      difficulty: 'Medium'
     },
     {
       id: '13',
-      actor: 'Will Smith',
-      actress: 'Eva Mendes',
-      movie: 'Hitch',
-      song: 'Yeah',
-      category: 'Hollywood',
-      difficulty: 'Easy'
+      actor: 'Govinda',
+      actress: 'Karisma Kapoor',
+      movie: 'Coolie No. 1',
+      song: 'Main To Raste Se Ja Raha Tha',
+      category: 'Bollywood',
+      difficulty: 'Hard'
     },
-    
-    // Hollywood Medium
     {
       id: '14',
-      actor: 'Ryan Gosling',
-      actress: 'Emma Stone',
-      movie: 'La La Land',
-      song: 'City of Stars',
-      category: 'Hollywood',
-      difficulty: 'Medium'
-    },
-    {
-      id: '15',
-      actor: 'Hugh Jackman',
-      actress: 'Anne Hathaway',
-      movie: 'Les Misérables',
-      song: 'I Dreamed a Dream',
-      category: 'Hollywood',
-      difficulty: 'Medium'
-    },
-    
-    // Hollywood Hard
-    {
-      id: '16',
-      actor: 'Oscar Isaac',
-      actress: 'Alicia Vikander',
-      movie: 'Ex Machina',
-      song: 'Get Down Saturday Night',
-      category: 'Hollywood',
+      actor: 'Shah Rukh Khan',
+      actress: 'Preity Zinta',
+      movie: 'Veer-Zaara',
+      song: 'Tere Liye',
+      category: 'Bollywood',
       difficulty: 'Hard'
     }
   ];
@@ -349,8 +321,21 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
     const availableMovies = getAllMovies();
     if (availableMovies.length === 0) return;
     
-    const randomMovie = availableMovies[Math.floor(Math.random() * availableMovies.length)];
-    setCurrentMovie(randomMovie);
+    // Filter out already used movies
+    const unusedMovies = availableMovies.filter(movie => !usedMovieIds.has(movie.id));
+    
+    // If all movies have been used, reset the used movies set
+    if (unusedMovies.length === 0) {
+      setUsedMovieIds(new Set());
+      const randomMovie = availableMovies[Math.floor(Math.random() * availableMovies.length)];
+      setUsedMovieIds(new Set([randomMovie.id]));
+      setCurrentMovie(randomMovie);
+    } else {
+      const randomMovie = unusedMovies[Math.floor(Math.random() * unusedMovies.length)];
+      setUsedMovieIds(prev => new Set([...prev, randomMovie.id]));
+      setCurrentMovie(randomMovie);
+    }
+    
     setShowInitials(false);
     setPlayerGuesses({ actor: '', actress: '', movie: '', song: '' });
     setRevealedFields({ actor: false, actress: false, movie: false, song: false });
@@ -371,7 +356,12 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
     const guess = playerGuesses[field].toLowerCase().trim();
     const actual = currentMovie[field].toLowerCase().trim();
     
-    if (guess === actual) {
+    // Check for exact match or partial match (first name)
+    const isMatch = guess === actual || 
+                   actual.startsWith(guess + ' ') || 
+                   guess === actual.split(' ')[0];
+    
+    if (isMatch) {
       setRevealedFields(prev => ({ ...prev, [field]: true }));
       
       // Award points based on difficulty
@@ -466,8 +456,8 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                 {/* Category Selection */}
                 <div className="mb-8">
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Select Category</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {['All', 'Bollywood'].map((category) => (
+                  <div className="grid grid-cols-1 gap-3">
+                    {['All'].map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category as any)}
@@ -483,7 +473,6 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                         </div>
                         <p className="text-xs text-slate-500 mt-1">
                           {category === 'All' && `${getAllMovies().length} movies`}
-                          {category === 'Bollywood' && `${defaultMovies.filter(m => m.category === 'Bollywood').length + customMovies.filter(m => m.category === 'Bollywood').length} movies`}
                         </p>
                       </button>
                     ))}

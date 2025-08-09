@@ -795,7 +795,10 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                   {/* Initials Display */}
                   {showInitials && (
                     <div className="bg-gradient-to-r from-orange-500 to-purple-600 text-white p-8 rounded-xl shadow-lg">
-                      <h3 className="text-2xl font-bold text-center mb-6">Guess These Initials!</h3>
+                      <h3 className="text-2xl font-bold text-center mb-2">Guess These Initials!</h3>
+                      <p className="text-center text-orange-100 mb-6">
+                        {players[currentPlayerIndex].name} is showing • Everyone else guess!
+                      </p>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                         <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                           <Star className="w-8 h-8 mx-auto mb-2" />
@@ -817,6 +820,11 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                           <p className="text-sm opacity-80">Song</p>
                           <p className="text-4xl font-bold">{getInitials(currentMovie.song)}</p>
                         </div>
+                      </div>
+                      <div className="text-center mt-6">
+                        <p className="text-orange-100 text-sm">
+                          🎬 Example: S = Salman, A = Anushka, M = Sultan, J = Jag Ghoomeya
+                        </p>
                       </div>
                     </div>
                   )}

@@ -292,7 +292,7 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
   const getAllMovies = () => {
     const allMovies = [...defaultMovies, ...customMovies];
     if (selectedCategory === 'All') return allMovies;
-    return allMovies.filter(movie => movie.category === selectedCategory);
+    return allMovies.filter(movie => movie.category === 'Bollywood');
   };
 
   const addPlayer = () => {
@@ -320,6 +320,7 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
       const movieData: MovieData = {
         id: Date.now().toString(),
         ...newMovie,
+        category: 'Bollywood',
         addedBy: username
       };
       setCustomMovies([...customMovies, movieData]);
@@ -328,7 +329,7 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
         actress: '',
         movie: '',
         song: '',
-        category: 'Bollywood',
+        category: 'Bollywood' as 'Bollywood' | 'Hollywood',
         difficulty: 'Medium'
       });
       setShowAddMovie(false);
@@ -361,7 +362,7 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
   };
 
   const getInitials = (text: string) => {
-    return text.split(' ').map(word => word.charAt(0).toUpperCase()).join('');
+    return text.charAt(0).toUpperCase();
   };
 
   const checkGuess = (field: keyof typeof playerGuesses) => {
@@ -465,8 +466,8 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                 {/* Category Selection */}
                 <div className="mb-8">
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Select Category</h3>
-                  <div className="grid grid-cols-3 gap-3">
-                    {['All', 'Bollywood', 'Hollywood'].map((category) => (
+                  <div className="grid grid-cols-2 gap-3">
+                    {['All', 'Bollywood'].map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category as any)}
@@ -483,7 +484,6 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                         <p className="text-xs text-slate-500 mt-1">
                           {category === 'All' && `${getAllMovies().length} movies`}
                           {category === 'Bollywood' && `${defaultMovies.filter(m => m.category === 'Bollywood').length + customMovies.filter(m => m.category === 'Bollywood').length} movies`}
-                          {category === 'Hollywood' && `${defaultMovies.filter(m => m.category === 'Hollywood').length + customMovies.filter(m => m.category === 'Hollywood').length} movies`}
                         </p>
                       </button>
                     ))}
@@ -494,60 +494,58 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                 <div className="mb-8 text-center">
                   <button
                     onClick={() => setShowAddMovie(true)}
-                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-colors duration-200 flex items-center space-x-2 mx-auto"
+                    className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-bold hover:from-green-700 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-3 mx-auto text-lg"
                   >
-                    <Plus className="w-5 h-5" />
-                    <span>Add Your Own Movie</span>
+                    <Plus className="w-6 h-6" />
+                    <span>🎬 Add Your Movie</span>
                   </button>
+                  <p className="text-sm text-slate-500 mt-2">Add your favorite movies to make the game more personal!</p>
                 </div>
 
                 {/* Add Movie Form */}
                 {showAddMovie && (
-                  <div className="mb-8 p-6 bg-purple-50 rounded-xl border border-purple-200">
-                    <h3 className="text-lg font-semibold text-purple-900 mb-4">Add Custom Movie</h3>
+                  <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200 shadow-lg">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full flex items-center justify-center">
+                        <Film className="w-5 h-5 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-green-900">Add Your Custom Movie</h3>
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                       <input
                         type="text"
                         placeholder="Actor Name"
                         value={newMovie.actor}
                         onChange={(e) => setNewMovie({...newMovie, actor: e.target.value})}
-                        className="px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                        className="px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200"
                       />
                       <input
                         type="text"
                         placeholder="Actress Name"
                         value={newMovie.actress}
                         onChange={(e) => setNewMovie({...newMovie, actress: e.target.value})}
-                        className="px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                        className="px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200"
                       />
                       <input
                         type="text"
                         placeholder="Movie Name"
                         value={newMovie.movie}
                         onChange={(e) => setNewMovie({...newMovie, movie: e.target.value})}
-                        className="px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                        className="px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200"
                       />
                       <input
                         type="text"
                         placeholder="Song Name"
                         value={newMovie.song}
                         onChange={(e) => setNewMovie({...newMovie, song: e.target.value})}
-                        className="px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                        className="px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200"
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <select
-                        value={newMovie.category}
-                        onChange={(e) => setNewMovie({...newMovie, category: e.target.value as any})}
-                        className="px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
-                      >
-                        <option value="Bollywood">Bollywood</option>
-                        <option value="Hollywood">Hollywood</option>
-                      </select>
+                    <div className="grid grid-cols-1 gap-4 mb-6">
                       <select
                         value={newMovie.difficulty}
                         onChange={(e) => setNewMovie({...newMovie, difficulty: e.target.value as any})}
-                        className="px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                        className="px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200"
                       >
                         <option value="Easy">Easy (1 pt)</option>
                         <option value="Medium">Medium (2 pts)</option>
@@ -557,7 +555,7 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                     <div className="flex space-x-3">
                       <button
                         onClick={addCustomMovie}
-                        className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors duration-200 flex items-center space-x-2"
+                        className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-colors duration-200 flex items-center space-x-2"
                       >
                         <Check className="w-4 h-4" />
                         <span>Add Movie</span>
@@ -813,22 +811,22 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
                         <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                           <Star className="w-8 h-8 mx-auto mb-2" />
                           <p className="text-sm opacity-80">Actor</p>
-                          <p className="text-3xl font-bold">{getInitials(currentMovie.actor)}</p>
+                          <p className="text-4xl font-bold">{getInitials(currentMovie.actor)}</p>
                         </div>
                         <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                           <Star className="w-8 h-8 mx-auto mb-2" />
                           <p className="text-sm opacity-80">Actress</p>
-                          <p className="text-3xl font-bold">{getInitials(currentMovie.actress)}</p>
+                          <p className="text-4xl font-bold">{getInitials(currentMovie.actress)}</p>
                         </div>
                         <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                           <Film className="w-8 h-8 mx-auto mb-2" />
                           <p className="text-sm opacity-80">Movie</p>
-                          <p className="text-3xl font-bold">{getInitials(currentMovie.movie)}</p>
+                          <p className="text-4xl font-bold">{getInitials(currentMovie.movie)}</p>
                         </div>
                         <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                           <Music className="w-8 h-8 mx-auto mb-2" />
                           <p className="text-sm opacity-80">Song</p>
-                          <p className="text-3xl font-bold">{getInitials(currentMovie.song)}</p>
+                          <p className="text-4xl font-bold">{getInitials(currentMovie.song)}</p>
                         </div>
                       </div>
                     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, TowerControl as GameController2, Crown, Zap, Heart, Star, Lock, Play, Settings, Trophy, Wifi, Eye, Target, Film } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 import AdminPanel from './components/AdminPanel';
 import CricketersAtlas from './components/CricketersAtlas';
 import RoomSystem from './components/RoomSystem';
@@ -8,6 +9,7 @@ import SpyGame from './components/SpyGame';
 import DumbCharades from './components/DumbCharades';
 import MrWhite from './components/MrWhite';
 import HollywoodBollywoodGame from './components/HollywoodBollywoodGame';
+import WhoAmI from './components/WhoAmI';
 
 interface GameSlot {
   id: number;
@@ -111,6 +113,15 @@ function App() {
     },
     {
       id: 5,
+      name: "Who Am I?",
+      description: "Guess the celebrity through Yes/No questions",
+      icon: <HelpCircle className="w-8 h-8" />,
+      color: "from-indigo-400 to-blue-500",
+      comingSoon: false,
+      component: 'WhoAmI'
+    },
+    {
+      id: 6,
       name: "Spy Game",
       description: "Find the spy among your friends",
       icon: <Eye className="w-8 h-8" />,
@@ -119,7 +130,7 @@ function App() {
       component: 'SpyGame'
     },
     {
-      id: 6,
+      id: 7,
       name: "Bollywood Quiz",
       description: "Test your Bollywood knowledge",
       icon: <Crown className="w-8 h-8" />,
@@ -127,7 +138,7 @@ function App() {
       comingSoon: true
     },
     {
-      id: 7,
+      id: 8,
       name: "Dumb Charades",
       description: "Act out movies and more",
       icon: <GameController2 className="w-8 h-8" />,
@@ -136,7 +147,7 @@ function App() {
       component: 'DumbCharades'
     },
     {
-      id: 8,
+      id: 9,
       name: "Rapid Fire",
       description: "Quick questions, quick answers",
       icon: <Zap className="w-8 h-8" />,
@@ -144,7 +155,7 @@ function App() {
       comingSoon: true
     },
     {
-      id: 9,
+      id: 10,
       name: "Name-Place-Animal",
       description: "The classic letter game",
       icon: <Heart className="w-8 h-8" />,
@@ -152,7 +163,7 @@ function App() {
       comingSoon: true
     },
     {
-      id: 10,
+      id: 11,
       name: "Guess the Song",
       description: "Identify songs from clips",
       icon: <Play className="w-8 h-8" />,
@@ -226,6 +237,8 @@ function App() {
       return <MrWhite onBack={handleBackToHome} username={savedUsername} roomId={currentRoomId} />;
     } else if (currentGame === 'HollywoodBollywoodGame') {
       return <HollywoodBollywoodGame onBack={handleBackToHome} username={savedUsername} roomId={currentRoomId} />;
+    } else if (currentGame === 'WhoAmI') {
+      return <WhoAmI onBack={handleBackToHome} username={savedUsername} roomId={currentRoomId} />;
     }
   }
 

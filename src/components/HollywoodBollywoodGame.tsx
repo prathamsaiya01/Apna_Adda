@@ -193,6 +193,87 @@ const HollywoodBollywoodGame: React.FC<HollywoodBollywoodGameProps> = ({ onBack,
       song: 'Tere Liye',
       category: 'Bollywood',
       difficulty: 'Hard'
+    },
+    {
+      id: '15',
+      actor: 'Ranbir Kapoor',
+      actress: 'Nargis Fakhri',
+      movie: 'Rockstar',
+      song: 'Tum Ho',
+      category: 'Bollywood',
+      difficulty: 'Medium'
+    },
+    {
+      id: '16',
+      actor: 'Farhan Akhtar',
+      actress: 'Priyanka Chopra',
+      movie: 'Don 2',
+      song: 'Zaraa Dil Ko Thaam Lo',
+      category: 'Bollywood',
+      difficulty: 'Medium'
+    },
+    {
+      id: '17',
+      actor: 'John Abraham',
+      actress: 'Bipasha Basu',
+      movie: 'Jism',
+      song: 'Jaadu Hai Nasha Hai',
+      category: 'Bollywood',
+      difficulty: 'Hard'
+    },
+    {
+      id: '18',
+      actor: 'Ajay Devgn',
+      actress: 'Kareena Kapoor',
+      movie: 'Singham',
+      song: 'Saathiyaa',
+      category: 'Bollywood',
+      difficulty: 'Easy'
+    },
+    {
+      id: '19',
+      actor: 'Emraan Hashmi',
+      actress: 'Mallika Sherawat',
+      movie: 'Murder',
+      song: 'Bheege Honth Tere',
+      category: 'Bollywood',
+      difficulty: 'Hard'
+    },
+    {
+      id: '20',
+      actor: 'Saif Ali Khan',
+      actress: 'Rani Mukerji',
+      movie: 'Hum Tum',
+      song: 'Hum Tum',
+      category: 'Bollywood',
+      difficulty: 'Medium'
+    },
+    {
+      id: '21',
+      actor: 'Ranveer Singh',
+      actress: 'Deepika Padukone',
+      movie: 'Padmaavat',
+      song: 'Ghoomar',
+      category: 'Bollywood',
+      difficulty: 'Easy'
+    },
+    {
+      id: '22',
+      actor: 'Rajkummar Rao',
+      actress: 'Shraddha Kapoor',
+      movie: 'Stree',
+      song: 'Milegi Milegi',
+      category: 'Bollywood',
+      difficulty: 'Medium'
+    },
+    {
+      id: '23',
+      actor: 'Akshay Kumar',
+      actress: 'Vidya Balan',
+      movie: 'Bhool Bhulaiyaa',
+      song: 'Mere Dholna',
+      category: 'Bollywood',
+      difficulty: 'Medium'
     }
   ];
 
